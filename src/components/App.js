@@ -1,9 +1,9 @@
 import React from 'react';
+import CurrencyPair from './CurrencyCounter/CurrencyPair';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <CurrencyPair/>
   );
 }
 
