@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CurrencyInput from './Currency';
+import { getCurrencyRates } from '../../api/currencyRateAPI';
 
 const CurrencyConverter = () => {
-  const [rightCurrencyValue, setRightCurrencyValue] = useState();
-  const [leftCurrencyValue, setLeftCurrencyValue] = useState();
+  const [currencyList, setCurrencyList] = useState(null);
+
+  useEffect(() => {
+    getCurrencyRates();
+  });
 
   return (
     <div className="currency-converter">
-      <CurrencyInput />
+      {currencyList ? <CurrencyInput currencyList={currencyList} /> : null}
 
-      <CurrencyInput />
+      {currencyList ? <CurrencyInput currencyList={currencyList} /> : null}
     </div>
   );
 };

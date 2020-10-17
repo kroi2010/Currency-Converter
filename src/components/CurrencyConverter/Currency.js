@@ -1,17 +1,20 @@
 import React from 'react';
+import { getFullName } from '../../helpers/currencyName';
 
-const CurrencyInput = () => (
-  <div className="currency">
-    <select className="currency__type" searchable>
-      <option>United States Dollar</option>
+const CurrencyInput = (currencyList, defaultCurrency) => {
+  return (
+    <div className="currency">
+      <select className="currency__type">
+        {currencyList.map((currency) => {
+          return (
+            <option value={currency.name}>{getFullName(currency.name)}</option>
+          );
+        })}
+      </select>
 
-      <option>Euro</option>
-
-      <option>Great Britain Pound</option>
-    </select>
-
-    <input type="number" className="currency__input" />
-  </div>
-);
+      <input type="number" className="currency__input" />
+    </div>
+  );
+};
 
 export default CurrencyInput;

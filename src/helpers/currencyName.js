@@ -1,0 +1,37 @@
+const fullNames = {
+  USD: 'United States Dollar',
+  JPY: 'Japanese Yen',
+  BGN: 'Bulgarian Lev',
+  CZK: 'Czeck Koruna',
+  DKK: 'Danish Krone',
+  GBP: 'British Pound',
+  HUF: 'Hungarian Forint',
+  PLN: 'Polish Zloty',
+  RON: 'Romanian New Leu',
+  SEK: 'Swedish Krona',
+  CHF: 'Swiss Franc',
+  ISK: 'Iceland Krona',
+  NOK: 'Norwegian Krone',
+  HRK: 'Croatian Kuna',
+  RUB: 'Russian Rouble',
+  TRY: 'Turkish Lira',
+  AUD: 'Australian Dollar',
+  BRL: 'Brazilian Real',
+  CAD: 'Canadian Dollar',
+  CNY: 'Chinese Yuan',
+  IDR: 'Indonesian Rupiah',
+  ILS: 'Israel Shekel',
+  INR: 'Indian Rupee',
+  KRW: 'Korean Won',
+  MXN: 'Mexican Peso',
+  MYR: 'Malaysian Ringgit',
+  NZD: 'New Zealand Dollar',
+  PHP: 'Philippine Peso',
+  SGD: 'Singapore Dollar',
+  THB: 'Thai Baht',
+  ZAR: 'South African Rand',
+};
+
+export const getFullName = (shortName) => {
+  return fullNames[shortName];
+};
