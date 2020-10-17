@@ -1,0 +1,22 @@
+.currency-converter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  & > :first-child {
+    margin-right: 40px;
+    position: relative;
+
+    &::after {
+      content: $convert-icon;
+      color: $green;
+      font-family: 'FontAwesome';
+      font-size: 20px;
+      position: absolute;
+      right: 0;
+      margin-right: -30px;
+      bottom: 0;
+      margin-bottom: 40px;
+    }
+  }
+}

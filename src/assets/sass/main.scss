@@ -1,11 +1,15 @@
 // HELPERS
 @import 'helpers/variables.scss';
+@import 'helpers/icons.scss';
 @import 'helpers/mixins.scss';
 
-// BASICS
-@import 'basics/dropdown.scss';
+//BASICS
+@import 'basics/input.scss';
+@import 'basics/select.scss';
 
 // LAYOUT
 @import 'layout/main.scss';
 
 // COMPONENTS
+@import 'components/currency.scss';
+@import 'components/currency-converter.scss';

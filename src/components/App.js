@@ -1,10 +1,8 @@
 import React from 'react';
-import CurrencyPair from './CurrencyCounter/CurrencyPair';
+import CurrencyConverter from './CurrencyConverter/CurrencyConverter';
 
 function App() {
-  return (
-    <CurrencyPair/>
-  );
+  return <CurrencyConverter />;
 }
 
 export default App;

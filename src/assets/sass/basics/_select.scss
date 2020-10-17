@@ -1,0 +1,11 @@
+select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+// Clear arrow on IE
+select::-ms-expand {
+  display: none;
+}

@@ -1,0 +1,23 @@
+.currency {
+  display: flex;
+  flex-direction: column;
+  max-width: 250px;
+
+  & > * {
+    color: $text-color;
+  }
+
+  &__input {
+    height: 100px;
+    background: $input_color;
+    font-size: 30px;
+    padding: 0 15px;
+  }
+
+  &__type {
+    height: 40px;
+    background: $select_color;
+    font-size: 12px;
+    padding: 0 15px;
+  }
+}

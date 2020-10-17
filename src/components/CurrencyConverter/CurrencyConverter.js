@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import CurrencyInput from './Currency';
 
-const CurrencyPair = () => {
+const CurrencyConverter = () => {
   const [rightCurrencyValue, setRightCurrencyValue] = useState();
   const [leftCurrencyValue, setLeftCurrencyValue] = useState();
 
   return (
-    <>
+    <div className="currency-converter">
       <CurrencyInput />
 
       <CurrencyInput />
-    </>
+    </div>
   );
 };
 
-export default CurrencyPair;
+export default CurrencyConverter;
