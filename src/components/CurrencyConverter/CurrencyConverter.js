@@ -1,38 +1,39 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CurrencyInput from './Currency';
 import { getCurrencyRates } from '../../api/currencyRateAPI';
+import { useCurrencyChange, useLogger } from '../../hooks/customHooks';
 
 const CurrencyConverter = () => {
   const [rateList, setRateList] = useState({});
   const [currencyList, setCurrencyList] = useState([]);
-  const [firstCurrency, setFirstCurrency] = useState({
+  const firstCurrency = useCurrencyChange({
     name: 'USD',
-    value: 1,
+    amount: 1,
   });
-  const [secondCurrency, setSecondCurrency] = useState({
+  const secondCurrency = useCurrencyChange({
     name: 'EUR',
-    value: 0,
+    amount: 0,
   });
-  const firstRateUpdate = useRef(true);
+
+  useLogger(firstCurrency.value);
+  useLogger(secondCurrency.value);
 
   useEffect(() => {
     getCurrencyRates().then((data) => {
       setRateList({ ...data.ratesObject, EUR: '1' });
       setCurrencyList([...data.currencyList, 'EUR']);
-      console.log('>>> Fetched currency rates!');
     });
   }, []);
 
-  useLayoutEffect(() => {
-    // initial calculations of euro amount once rate is obtained
-    if (firstRateUpdate.current) {
-      firstRateUpdate.current = false;
-      return;
-    }
-    setSecondCurrency({
-      ...secondCurrency,
-      value: calcValue(firstCurrency, secondCurrency),
-    });
+  // initial calculations of euro amount once rate is obtained
+  useEffect(() => {
+    // if (Object.keys(rateList).length === 0) {
+    //   return;
+    // }
+    // setSecondCurrency({
+    //   ...secondCurrency,
+    //   value: calcValue(firstCurrency, secondCurrency),
+    // });
   }, [rateList]);
 
   const calcRate = (initialRate, againstRate) => {
@@ -40,50 +41,35 @@ const CurrencyConverter = () => {
   };
 
   const calcValue = (from, to) => {
-    debugger;
     const result =
       from.value * calcRate(rateList[from.name], rateList[to.name]);
     return result;
-  };
-
-  const changeFirstCurrency = (event) => {
-    setFirstCurrency({
-      ...firstCurrency,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const changeSecondCurrency = (event) => {
-    setSecondCurrency({
-      ...secondCurrency,
-      [event.target.name]: event.target.value,
-    });
   };
 
   return (
     <div className="currency-converter">
       <CurrencyInput
         currencyList={currencyList}
-        currencyValue={firstCurrency.value}
-        defaultCurrency={firstCurrency.name}
-        againstCurrency={secondCurrency.name}
+        currencyValue={firstCurrency.value.amount}
+        defaultCurrency={firstCurrency.value.name}
+        againstCurrency={secondCurrency.value.name}
         rate={calcRate(
-          rateList[firstCurrency.name],
-          rateList[secondCurrency.name]
+          rateList[firstCurrency.value.name],
+          rateList[secondCurrency.value.name]
         )}
-        onCurrencyChange={changeFirstCurrency}
+        onCurrencyChange={firstCurrency.onChange}
       />
 
       <CurrencyInput
         currencyList={currencyList}
-        currencyValue={secondCurrency.value}
-        defaultCurrency={secondCurrency.name}
-        againstCurrency={firstCurrency.name}
+        currencyValue={secondCurrency.value.amount}
+        defaultCurrency={secondCurrency.value.name}
+        againstCurrency={firstCurrency.value.name}
         rate={calcRate(
-          rateList[secondCurrency.name],
-          rateList[firstCurrency.name]
+          rateList[secondCurrency.value.name],
+          rateList[firstCurrency.value.name]
         )}
-        onCurrencyChange={changeSecondCurrency}
+        onCurrencyChange={secondCurrency.onChange}
       />
     </div>
   );

@@ -9,12 +9,7 @@ const CurrencyInput = ({
   rate,
   onCurrencyChange,
 }) => {
-  // console.log(
-  //   '>>> Updated currency ',
-  //   defaultCurrency,
-  //   currencyValue,
-  //   currencyList
-  // );
+  console.log('>>> Updated currency ', defaultCurrency, currencyValue);
 
   return (
     <div className="currency">
@@ -38,7 +33,7 @@ const CurrencyInput = ({
         type="number"
         className="currency__input"
         onChange={onCurrencyChange}
-        name="value"
+        name="amount"
         value={currencyValue}
       />
     </div>
