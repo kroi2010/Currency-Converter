@@ -7,9 +7,11 @@ const CurrencyConverter = () => {
   const [currencyList, setCurrencyList] = useState([]);
   const [firstCurrency, setFirstCurrency] = useState({
     name: 'USD',
+    value: 1,
   });
   const [secondCurrency, setSecondCurrency] = useState({
     name: 'EUR',
+    value: 0,
   });
   const firstRateUpdate = useRef(true);
 
@@ -17,14 +19,28 @@ const CurrencyConverter = () => {
     getCurrencyRates().then((data) => {
       setRateList({ ...data.ratesObject, EUR: '1' });
       setCurrencyList([...data.currencyList, 'EUR']);
+      console.log('>>> Fetched currency rates!');
     });
   }, []);
+
+  useLayoutEffect(() => {
+    // initial calculations of euro amount once rate is obtained
+    if (firstRateUpdate.current) {
+      firstRateUpdate.current = false;
+      return;
+    }
+    setSecondCurrency({
+      ...secondCurrency,
+      value: calcValue(firstCurrency, secondCurrency),
+    });
+  }, [rateList]);
 
   const calcRate = (initialRate, againstRate) => {
     return againstRate / initialRate;
   };
 
   const calcValue = (from, to) => {
+    debugger;
     const result =
       from.value * calcRate(rateList[from.name], rateList[to.name]);
     return result;
