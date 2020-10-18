@@ -9,8 +9,6 @@ const CurrencyInput = ({
   rate,
   onCurrencyChange,
 }) => {
-  console.log('>>> Updated currency ', defaultCurrency, currencyValue);
-
   return (
     <div className="currency">
       <p>

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import CurrencyInput from './Currency';
 import { getCurrencyRates } from '../../api/currencyRateAPI';
-import { useCurrencyChange, useLogger } from '../../hooks/customHooks';
+import {
+  useCurrencyChange,
+  useLogger,
+  useCurrencyBind,
+} from '../../hooks/customHooks';
+import { calcValue, calcRate } from '../../helpers/rateCalculator';
 
 const CurrencyConverter = () => {
   const [rateList, setRateList] = useState({});
@@ -18,6 +23,27 @@ const CurrencyConverter = () => {
   useLogger(firstCurrency.value);
   useLogger(secondCurrency.value);
 
+  useCurrencyBind(firstCurrency, secondCurrency, rateList);
+  useCurrencyBind(secondCurrency, firstCurrency, rateList);
+
+  // useEffect(() => {
+  //   if (Object.keys(rateList).length === 0) return;
+
+  //   secondCurrency.update(
+  //     'amount',
+  //     calcValue(firstCurrency.value, secondCurrency.value)
+  //   );
+  // }, [firstCurrency.value.name, firstCurrency.value.amount]);
+
+  // useEffect(() => {
+  //   if (Object.keys(rateList).length === 0) return;
+
+  //   firstCurrency.update(
+  //     'amount',
+  //     calcValue(secondCurrency.value, firstCurrency.value)
+  //   );
+  // }, [secondCurrency.value.name, secondCurrency.value.amount]);
+
   useEffect(() => {
     getCurrencyRates().then((data) => {
       setRateList({ ...data.ratesObject, EUR: '1' });
@@ -27,24 +53,14 @@ const CurrencyConverter = () => {
 
   // initial calculations of euro amount once rate is obtained
   useEffect(() => {
-    // if (Object.keys(rateList).length === 0) {
-    //   return;
-    // }
-    // setSecondCurrency({
-    //   ...secondCurrency,
-    //   value: calcValue(firstCurrency, secondCurrency),
-    // });
+    if (Object.keys(rateList).length === 0) {
+      return;
+    }
+    secondCurrency.update(
+      'amount',
+      calcValue(firstCurrency.value, secondCurrency.value, rateList)
+    );
   }, [rateList]);
-
-  const calcRate = (initialRate, againstRate) => {
-    return againstRate / initialRate;
-  };
-
-  const calcValue = (from, to) => {
-    const result =
-      from.value * calcRate(rateList[from.name], rateList[to.name]);
-    return result;
-  };
 
   return (
     <div className="currency-converter">
