@@ -4,17 +4,23 @@ const URL = 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
 const proxyURL = 'https://cors-anywhere.herokuapp.com/';
 
 export const getCurrencyRates = async () => {
-  let currencyRates = null;
   const textData = await fetch();
   const parsedData = parseData(textData);
-  currencyRates = parsedData.map((node) => {
+
+  const currencyRatesList = parsedData.map((node) => {
     return {
       currency: node.getAttribute('currency'),
       rate: node.getAttribute('rate'),
     };
   });
 
-  return currencyRates;
+  const ratesObject = currencyRatesList.reduce(
+    (a, b) => ((a[b.currency] = b.rate), a),
+    {}
+  );
+  const currencyList = currencyRatesList.map((obj) => obj.currency);
+
+  return { ratesObject, currencyList };
 };
 
 const parseData = (data) => {
@@ -27,7 +33,6 @@ const parseData = (data) => {
 const fetch = async () => {
   try {
     const { data: response } = await axios.get(proxyURL + URL);
-
     return response;
   } catch (error) {
     console.error('Could not fetch from ' + URL);

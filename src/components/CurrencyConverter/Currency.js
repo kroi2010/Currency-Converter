@@ -1,20 +1,33 @@
 import React from 'react';
 import { getFullName } from '../../helpers/currencyName';
 
-const CurrencyInput = ({ currencyList, defaultCurrency }) => {
-  const getOptions = () => {
-    return currencyList.map((el, index) => {
-      return (
-        <option value={el.currency} key={index}>
-          {getFullName(el.currency)}
-        </option>
-      );
-    });
-  };
+const CurrencyInput = ({
+  currencyList,
+  currencyValue,
+  defaultCurrency,
+  againstCurrency,
+  rate,
+  onCurrencyChange,
+}) => {
+  console.log('>>> Updated currency ', defaultCurrency, currencyList);
 
   return (
     <div className="currency">
-      <select className="currency__type">{getOptions()}</select>
+      <p>
+        1 {defaultCurrency} = {`${rate} ${againstCurrency}`}
+      </p>
+      <select
+        className="currency__type"
+        value={defaultCurrency}
+        name="name"
+        onChange={onCurrencyChange}
+      >
+        {currencyList.map((currency, index) => (
+          <option value={currency} key={index}>
+            {getFullName(currency)}
+          </option>
+        ))}
+      </select>
 
       <input type="number" className="currency__input" />
     </div>
