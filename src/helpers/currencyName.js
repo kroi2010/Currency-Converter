@@ -1,4 +1,5 @@
 const fullNames = {
+  EUR: 'Euro',
   USD: 'United States Dollar',
   JPY: 'Japanese Yen',
   BGN: 'Bulgarian Lev',
@@ -19,6 +20,7 @@ const fullNames = {
   BRL: 'Brazilian Real',
   CAD: 'Canadian Dollar',
   CNY: 'Chinese Yuan',
+  HKD: 'Honk Kong Dollar',
   IDR: 'Indonesian Rupiah',
   ILS: 'Israel Shekel',
   INR: 'Indian Rupee',
