@@ -6,7 +6,6 @@ import {
   useLogger,
   useCurrencyBind,
 } from '../../hooks/customHooks';
-import { calcValue, calcRate } from '../../helpers/rateCalculator';
 
 const CurrencyConverter = () => {
   const [rateList, setRateList] = useState({});
@@ -23,27 +22,6 @@ const CurrencyConverter = () => {
   useLogger(firstCurrency.value);
   useLogger(secondCurrency.value);
 
-  useCurrencyBind(firstCurrency, secondCurrency, rateList);
-  useCurrencyBind(secondCurrency, firstCurrency, rateList);
-
-  // useEffect(() => {
-  //   if (Object.keys(rateList).length === 0) return;
-
-  //   secondCurrency.update(
-  //     'amount',
-  //     calcValue(firstCurrency.value, secondCurrency.value)
-  //   );
-  // }, [firstCurrency.value.name, firstCurrency.value.amount]);
-
-  // useEffect(() => {
-  //   if (Object.keys(rateList).length === 0) return;
-
-  //   firstCurrency.update(
-  //     'amount',
-  //     calcValue(secondCurrency.value, firstCurrency.value)
-  //   );
-  // }, [secondCurrency.value.name, secondCurrency.value.amount]);
-
   useEffect(() => {
     getCurrencyRates().then((data) => {
       setRateList({ ...data.ratesObject, EUR: '1' });
@@ -58,9 +36,37 @@ const CurrencyConverter = () => {
     }
     secondCurrency.update(
       'amount',
-      calcValue(firstCurrency.value, secondCurrency.value, rateList)
+      calcValue(
+        firstCurrency.value.amount,
+        firstCurrency.value.name,
+        secondCurrency.value.name
+      )
     );
   }, [rateList]);
+
+  const currencyChange = (currencyChanged, currencyToChange) => (event) => {
+    currencyChanged.onChange(event);
+
+    currencyToChange.update(
+      'amount',
+      event.target.name === 'amount'
+        ? calcValue(
+            parseFloat(event.target.value),
+            currencyChanged.value.name,
+            currencyToChange.value.name
+          )
+        : calcValue(
+            currencyChanged.value.amount,
+            event.target.value,
+            currencyToChange.value.name
+          )
+    );
+  };
+
+  const calcRate = (initialRate, againstRate) => againstRate / initialRate;
+
+  const calcValue = (fromAmount, fromCurrency, toCurrency) =>
+    fromAmount * calcRate(rateList[fromCurrency], rateList[toCurrency]);
 
   return (
     <div className="currency-converter">
@@ -73,7 +79,7 @@ const CurrencyConverter = () => {
           rateList[firstCurrency.value.name],
           rateList[secondCurrency.value.name]
         )}
-        onCurrencyChange={firstCurrency.onChange}
+        onCurrencyChange={currencyChange(firstCurrency, secondCurrency)}
       />
 
       <CurrencyInput
@@ -85,7 +91,7 @@ const CurrencyConverter = () => {
           rateList[secondCurrency.value.name],
           rateList[firstCurrency.value.name]
         )}
-        onCurrencyChange={secondCurrency.onChange}
+        onCurrencyChange={currencyChange(secondCurrency, firstCurrency)}
       />
     </div>
   );
