@@ -1,5 +1,6 @@
 import React from 'react';
 import { getFullName } from '../../helpers/currencyName';
+import { getSymbol } from '../../helpers/currencySymbol';
 
 const CurrencyInput = ({
   currencyList,
@@ -27,13 +28,19 @@ const CurrencyInput = ({
         ))}
       </select>
 
-      <input
-        type="number"
-        className="currency__input"
-        onChange={onCurrencyChange}
-        name="amount"
-        value={Math.round(currencyValue * 100) / 100}
-      />
+      <div className="currency__input-wrapper">
+        <span className="currency__input-symbol">
+          {getSymbol(defaultCurrency)}
+        </span>
+
+        <input
+          type="number"
+          className="currency__input"
+          onChange={onCurrencyChange}
+          name="amount"
+          value={Math.round(currencyValue * 100) / 100}
+        />
+      </div>
     </div>
   );
 };

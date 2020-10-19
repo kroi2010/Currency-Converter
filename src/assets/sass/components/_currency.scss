@@ -20,15 +20,17 @@
     pointer-events: none;
   }
 
-  & > * {
+  & * {
     color: $text-color;
   }
 
   &__input {
     height: 100px;
-    background: $input_color;
     font-size: 30px;
-    padding: 0 15px;
+    background: transparent;
+    padding: 0 35px 0 0;
+    margin-left: 8px;
+    min-width: 100px;
   }
 
   &__type {
@@ -40,5 +42,18 @@
 
   &__rate {
     font-size: 13px;
+  }
+
+  &__input-wrapper {
+    display: flex;
+    flex-direction: row;
+    background: $input_color;
+  }
+
+  &__input-symbol {
+    color: $currency-symbol;
+    font-size: 30px;
+    line-height: 100px;
+    padding-left: 15px;
   }
 }
