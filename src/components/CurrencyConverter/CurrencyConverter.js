@@ -89,7 +89,7 @@ const CurrencyConverter = () => {
         />
       </div>
       <p className="disclaimer">
-        All currencies are displayed rounded to to digits after comma.
+        All currencies are displayed rounded to two digits after comma.
       </p>
     </>
   );
