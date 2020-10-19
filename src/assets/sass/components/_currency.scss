@@ -2,6 +2,23 @@
   display: flex;
   flex-direction: column;
   max-width: 250px;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border: 1px solid $white;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 55px;
+    margin-right: 20px;
+    pointer-events: none;
+  }
 
   & > * {
     color: $text-color;
@@ -19,5 +36,9 @@
     background: $select_color;
     font-size: 12px;
     padding: 0 15px;
+  }
+
+  &__rate {
+    font-size: 13px;
   }
 }

@@ -11,7 +11,7 @@ const CurrencyInput = ({
 }) => {
   return (
     <div className="currency">
-      <p>
+      <p className="currency__rate">
         1 {defaultCurrency} = {`${rate} ${againstCurrency}`}
       </p>
       <select

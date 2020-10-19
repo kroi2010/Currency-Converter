@@ -5,7 +5,6 @@
 
   & > :first-child {
     margin-right: 40px;
-    position: relative;
 
     &::after {
       content: $convert-icon;
@@ -17,6 +16,19 @@
       margin-right: -30px;
       bottom: 0;
       margin-bottom: 40px;
+    }
+  }
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+
+    & > :first-child {
+      margin: 0 0 40px;
+
+      &::after {
+        margin-right: 110px;
+        margin-bottom: -45px;
+      }
     }
   }
 }
