@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CurrencyInput from './Currency';
 import { getCurrencyRates } from '../../api/currencyRateAPI';
-import {
-  useCurrencyChange,
-  useLogger,
-  useCurrencyBind,
-} from '../../hooks/customHooks';
+import { useCurrencyChange } from '../../hooks/customHooks';
 
 const CurrencyConverter = () => {
   const [rateList, setRateList] = useState({});
@@ -18,9 +14,6 @@ const CurrencyConverter = () => {
     name: 'EUR',
     amount: 0,
   });
-
-  useLogger(firstCurrency.value);
-  useLogger(secondCurrency.value);
 
   useEffect(() => {
     getCurrencyRates().then((data) => {
