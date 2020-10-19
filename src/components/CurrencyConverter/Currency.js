@@ -32,7 +32,7 @@ const CurrencyInput = ({
         className="currency__input"
         onChange={onCurrencyChange}
         name="amount"
-        value={currencyValue}
+        value={Math.round(currencyValue * 100) / 100}
       />
     </div>
   );

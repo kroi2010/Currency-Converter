@@ -62,31 +62,36 @@ const CurrencyConverter = () => {
     fromAmount * calcRate(rateList[fromCurrency], rateList[toCurrency]);
 
   return (
-    <div className="currency-converter">
-      <CurrencyInput
-        currencyList={currencyList}
-        currencyValue={firstCurrency.value.amount}
-        defaultCurrency={firstCurrency.value.name}
-        againstCurrency={secondCurrency.value.name}
-        rate={calcRate(
-          rateList[firstCurrency.value.name],
-          rateList[secondCurrency.value.name]
-        )}
-        onCurrencyChange={currencyChange(firstCurrency, secondCurrency)}
-      />
+    <>
+      <div className="currency-converter">
+        <CurrencyInput
+          currencyList={currencyList}
+          currencyValue={firstCurrency.value.amount}
+          defaultCurrency={firstCurrency.value.name}
+          againstCurrency={secondCurrency.value.name}
+          rate={calcRate(
+            rateList[firstCurrency.value.name],
+            rateList[secondCurrency.value.name]
+          )}
+          onCurrencyChange={currencyChange(firstCurrency, secondCurrency)}
+        />
 
-      <CurrencyInput
-        currencyList={currencyList}
-        currencyValue={secondCurrency.value.amount}
-        defaultCurrency={secondCurrency.value.name}
-        againstCurrency={firstCurrency.value.name}
-        rate={calcRate(
-          rateList[secondCurrency.value.name],
-          rateList[firstCurrency.value.name]
-        )}
-        onCurrencyChange={currencyChange(secondCurrency, firstCurrency)}
-      />
-    </div>
+        <CurrencyInput
+          currencyList={currencyList}
+          currencyValue={secondCurrency.value.amount}
+          defaultCurrency={secondCurrency.value.name}
+          againstCurrency={firstCurrency.value.name}
+          rate={calcRate(
+            rateList[secondCurrency.value.name],
+            rateList[firstCurrency.value.name]
+          )}
+          onCurrencyChange={currencyChange(secondCurrency, firstCurrency)}
+        />
+      </div>
+      <p className="disclaimer">
+        All currencies are displayed rounded to to digits after comma.
+      </p>
+    </>
   );
 };
 
