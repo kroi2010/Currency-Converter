@@ -42,7 +42,6 @@ const Currency = ({
           onChange={onCurrencyChange}
           name="amount"
           value={Math.round(currencyValue * 100) / 100}
-          data-testid="currency-input"
         />
       </div>
     </div>

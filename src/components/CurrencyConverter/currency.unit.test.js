@@ -55,8 +55,6 @@ describe('Currency box', () => {
   });
 
   it('renders correct default currency value', () => {
-    expect(screen.getByTestId('currency-input').value).toBe(
-      props.currencyValue
-    );
+    expect(screen.getByRole('spinbutton').value).toBe(props.currencyValue);
   });
 });
