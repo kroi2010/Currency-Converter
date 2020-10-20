@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { screen, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 
 import Currency from './Currency';
@@ -45,29 +45,18 @@ describe('Currency box', () => {
   });
 
   it('renders currency rate ratio correctly', () => {
-    expect(
-      container.querySelector("[data-testid='currency-rate']").textContent
-    ).toBe(
+    expect(screen.getByTestId('currency-rate')).toHaveTextContent(
       `1 ${props.defaultCurrency} = ${props.rate} ${props.againstCurrency}`
     );
   });
 
   it('renders correct currency symbol for input', () => {
-    expect(
-      container.querySelector("[data-testid='currency-input-symbol']")
-        .textContent
-    ).toBe('$');
+    expect(screen.getByTestId('currency-input-symbol')).toHaveTextContent('$');
   });
 
   it('renders correct default currency value', () => {
     expect(screen.getByTestId('currency-input').value).toBe(
       props.currencyValue
     );
-  });
-
-  it('should prevent user from typing letters', () => {
-    const input = screen.getByTestId('currency-input');
-    fireEvent.change(input, { target: { value: 'string' } });
-    expect(input.value).toBe(props.currencyValue);
   });
 });
