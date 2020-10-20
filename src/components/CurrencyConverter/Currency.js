@@ -2,7 +2,7 @@ import React from 'react';
 import { getFullName } from '../../helpers/currencyName';
 import { getSymbol } from '../../helpers/currencySymbol';
 
-const CurrencyInput = ({
+const Currency = ({
   currencyList,
   currencyValue,
   defaultCurrency,
@@ -12,7 +12,7 @@ const CurrencyInput = ({
 }) => {
   return (
     <div className="currency">
-      <p className="currency__rate">
+      <p className="currency__rate" data-testid="currency-rate">
         1 {defaultCurrency} = {`${rate} ${againstCurrency}`}
       </p>
       <select
@@ -29,7 +29,10 @@ const CurrencyInput = ({
       </select>
 
       <div className="currency__input-wrapper">
-        <span className="currency__input-symbol">
+        <span
+          className="currency__input-symbol"
+          data-testid="currency-input-symbol"
+        >
           {getSymbol(defaultCurrency)}
         </span>
 
@@ -39,10 +42,11 @@ const CurrencyInput = ({
           onChange={onCurrencyChange}
           name="amount"
           value={Math.round(currencyValue * 100) / 100}
+          data-testid="currency-input"
         />
       </div>
     </div>
   );
 };
 
-export default CurrencyInput;
+export default Currency;

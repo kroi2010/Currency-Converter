@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CurrencyInput from './Currency';
+import Currency from './Currency';
 import { getCurrencyRates } from '../../api/currencyRateAPI';
 import { useCurrencyChange } from '../../hooks/customHooks';
 
@@ -64,7 +64,7 @@ const CurrencyConverter = () => {
   return (
     <>
       <div className="currency-converter">
-        <CurrencyInput
+        <Currency
           currencyList={currencyList}
           currencyValue={firstCurrency.value.amount}
           defaultCurrency={firstCurrency.value.name}
@@ -76,7 +76,7 @@ const CurrencyConverter = () => {
           onCurrencyChange={currencyChange(firstCurrency, secondCurrency)}
         />
 
-        <CurrencyInput
+        <Currency
           currencyList={currencyList}
           currencyValue={secondCurrency.value.amount}
           defaultCurrency={secondCurrency.value.name}
